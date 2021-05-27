@@ -6,6 +6,7 @@ import com.myapi.model.auth.dto.LoggedDTO;
 import com.myapi.model.auth.dto.SigninDTO;
 import com.myapi.model.auth.mapper.AuthMapper;
 import com.myapi.model.jwt.UserDetailsImpl;
+import com.myapi.model.user.dto.UserListDTO;
 import com.myapi.model.user.dto.UserPostDTO;
 import com.myapi.model.user.entity.User;
 import com.myapi.model.user.mapper.UserMapper;
@@ -85,7 +86,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<User> list() {
-        return userRepository.findAll();
+    public List<UserListDTO> list() {
+        return userRepository.findAllCustom();
     }
 }

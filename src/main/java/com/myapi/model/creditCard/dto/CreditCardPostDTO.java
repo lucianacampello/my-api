@@ -1,6 +1,5 @@
 package com.myapi.model.creditCard.dto;
 
-import com.myapi.model.user.dto.UserPutDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,17 +13,19 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreditCardPostDTO {
-    @NotBlank
-    @Size(min = 14, max = 16)
+
+    @NotBlank(message = "Number cannot be empty")
+    @Size(min = 14, max = 16, message = "Number must have more than 14 and less than 16 characters")
+//    @Min(value = 14, message = "Number must have more than 14 characters")
     private String number;
 
-    @NotNull
+    @NotNull(message = "ExpirationDate cannot be null")
     private LocalDate expirationDate;
 
-    @NotNull
-    @Size(min = 3, max = 3)
+    @NotBlank(message = "CVV cannot be empty")
+    @Size(min = 3, max = 3, message = "Number must have 3 characters")
     private String cvv;
 
-    @NotNull
-    private UserPutDTO userDto;
+    @NotNull(message = "userDto cannot be null")
+    private Long user;
 }

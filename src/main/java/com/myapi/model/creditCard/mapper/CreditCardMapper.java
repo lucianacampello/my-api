@@ -11,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 public abstract class CreditCardMapper {
     public static final CreditCardMapper INSTANCE = Mappers.getMapper(CreditCardMapper.class);
 
-    @Mapping(source = "userDto", target = "user")
+    @Mapping(source = "user", target = "user.id")
     public abstract CreditCard toCreditCard(CreditCardPostDTO creditCardPostDTO);
 
     public abstract CreditCardListDTO toCreditCardListDTO(CreditCard creditCard);

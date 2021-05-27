@@ -3,7 +3,6 @@ package com.myapi.service;
 import com.myapi.infrastructure.dto.MessageResponseDTO;
 import com.myapi.model.creditCard.dto.CreditCardListDTO;
 import com.myapi.model.creditCard.dto.CreditCardPostDTO;
-import com.myapi.model.creditCard.entity.CreditCard;
 import com.myapi.model.creditCard.mapper.CreditCardMapper;
 import com.myapi.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +31,7 @@ public class CreditCardService {
                             Collections.singletonList("Already exists a credit card registered with this number"))
             );
         } else {
-            CreditCard creditCard = CreditCardMapper.INSTANCE.toCreditCard(dto);
-
-            creditCardRepository.save(creditCard);
+            creditCardRepository.save(CreditCardMapper.INSTANCE.toCreditCard(dto));
         }
         return messageDto;
     }
