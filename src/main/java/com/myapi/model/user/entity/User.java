@@ -1,5 +1,7 @@
-package com.myapi.model;
+package com.myapi.model.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.myapi.model.creditCard.entity.CreditCard;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,13 +10,15 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Usuario {
-
+public class User implements Serializable {
+    private static final long serialVersionUID = -1809024519662046454L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +26,7 @@ public class Usuario {
     @NotBlank
     @Size(max = 150)
     @Column(nullable = false)
-    private String nome;
+    private String name;
 
     @Email
     @NotBlank
@@ -32,11 +36,17 @@ public class Usuario {
 
     @NotBlank
     @Column(nullable = false)
-    private String senha;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     @Size(max = 13)
-    private Perfil perfil = Perfil.CLIENTE;
+    private Role role = Role.CLIENT;
+
+    @OneToMany(targetEntity = CreditCard.class, mappedBy = "user",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<CreditCard> creditCards;
 }
 
 

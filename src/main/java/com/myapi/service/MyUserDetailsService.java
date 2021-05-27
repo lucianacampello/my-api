@@ -1,7 +1,7 @@
 package com.myapi.service;
 
-import com.myapi.model.Usuario;
 import com.myapi.model.jwt.UserDetailsImpl;
+import com.myapi.model.user.entity.User;
 import com.myapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +17,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //TODO throw right exception
-        Usuario user = userRepository
+        User user = userRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Cedenciais inválidas"));
 

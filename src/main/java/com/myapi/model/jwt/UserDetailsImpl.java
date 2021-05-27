@@ -1,7 +1,7 @@
 package com.myapi.model.jwt;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.myapi.model.Usuario;
+import com.myapi.model.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,12 +27,12 @@ public class UserDetailsImpl implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public static UserDetailsImpl build(Usuario usuario) {
+    public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities =
-                Collections.singletonList(new SimpleGrantedAuthority(usuario.getPerfil().toString()));
+                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().toString()));
 
-        return new UserDetailsImpl(usuario.getId(), usuario.getNome(), usuario.getEmail(),
-                usuario.getSenha(), authorities);
+        return new UserDetailsImpl(user.getId(), user.getName(), user.getEmail(),
+                user.getPassword(), authorities);
     }
 
     @Override
