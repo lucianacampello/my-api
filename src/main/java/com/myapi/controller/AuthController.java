@@ -1,10 +1,10 @@
 package com.myapi.controller;
 
-import com.myapi.model.Usuario;
-import com.myapi.model.dto.LoggedDTO;
-import com.myapi.model.dto.MessageResponseDTO;
-import com.myapi.model.dto.SigninDTO;
-import com.myapi.model.dto.SignupDTO;
+import com.myapi.infrastructure.dto.MessageResponseDTO;
+import com.myapi.model.auth.dto.LoggedDTO;
+import com.myapi.model.auth.dto.SigninDTO;
+import com.myapi.model.user.dto.UserPostDTO;
+import com.myapi.model.user.entity.User;
 import com.myapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class AuthController {
 
     //FIXME Remove when tests is done
     @GetMapping("/list")
-    public ResponseEntity<List<Usuario>> home() {
+    public ResponseEntity<List<User>> home() {
         return ResponseEntity.ok(userService.list());
     }
 
@@ -35,7 +35,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<MessageResponseDTO> signup(@Valid @RequestBody SignupDTO dto) throws Exception {
+    public ResponseEntity<MessageResponseDTO> signup(@Valid @RequestBody UserPostDTO dto) throws Exception {
         MessageResponseDTO messageDTO = userService.create(dto);
 
         if (messageDTO != null) {
@@ -43,7 +43,7 @@ public class AuthController {
         }
 
         return ResponseEntity.ok(new MessageResponseDTO(Collections.singletonMap("Success",
-                Collections.singletonList("Usuário incluído com sucesso"))));
+                Collections.singletonList("User successfully created"))));
     }
 
     @PostMapping("/signout")

@@ -1,6 +1,6 @@
-package com.myapi.model.dto;
+package com.myapi.model.user.dto;
 
-import com.myapi.model.Perfil;
+import com.myapi.model.user.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignupDTO {
+public class UserPutDTO {
+    private Long id;
     private String name;
     private String email;
-    private String password;
-    private Perfil role;
+    private Role role;
 }
