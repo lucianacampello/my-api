@@ -101,6 +101,13 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.12.3</version>
         </dependency>
+
+        <!-- CreditCard Validation -->
+        <dependency>
+            <groupId>br.com.moip</groupId>
+            <artifactId>credit-card-validator</artifactId>
+            <version>0.0.6</version>
+        </dependency>
     </dependencies>
 
     <build>

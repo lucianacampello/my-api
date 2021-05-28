@@ -1,10 +1,11 @@
-package com.myapi.service;
+package com.myapi.service.creditCard;
 
 import com.myapi.infrastructure.dto.MessageResponseDTO;
 import com.myapi.model.creditCard.dto.CreditCardListDTO;
 import com.myapi.model.creditCard.dto.CreditCardPostDTO;
 import com.myapi.model.creditCard.mapper.CreditCardMapper;
 import com.myapi.repository.CreditCardRepository;
+import com.myapi.service.creditCard.validation.CreditCardInsertValidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,8 @@ public class CreditCardService {
     @Transactional(rollbackFor = Throwable.class)
     public MessageResponseDTO create(CreditCardPostDTO dto) {
         //TODO throw business exception
-        //TODO validation
+        new CreditCardInsertValidate(dto).execute();
+
         MessageResponseDTO messageDto = null;
 
         if (creditCardRepository.existsByNumber(dto.getNumber())) {

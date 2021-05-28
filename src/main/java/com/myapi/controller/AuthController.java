@@ -4,7 +4,7 @@ import com.myapi.infrastructure.dto.MessageResponseDTO;
 import com.myapi.model.auth.dto.LoggedDTO;
 import com.myapi.model.auth.dto.SigninDTO;
 import com.myapi.model.user.dto.UserPostDTO;
-import com.myapi.service.UserService;
+import com.myapi.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

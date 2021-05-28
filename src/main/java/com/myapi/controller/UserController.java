@@ -1,7 +1,7 @@
 package com.myapi.controller;
 
 import com.myapi.model.user.dto.UserListDTO;
-import com.myapi.service.UserService;
+import com.myapi.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

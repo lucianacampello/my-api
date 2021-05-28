@@ -1,4 +1,4 @@
-package com.myapi.service;
+package com.myapi.service.user;
 
 import com.myapi.model.jwt.UserDetailsImpl;
 import com.myapi.model.user.entity.User;

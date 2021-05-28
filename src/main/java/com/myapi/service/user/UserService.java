@@ -1,4 +1,4 @@
-package com.myapi.service;
+package com.myapi.service.user;
 
 import com.myapi.infrastructure.dto.MessageResponseDTO;
 import com.myapi.infrastructure.utils.JwtUtility;
