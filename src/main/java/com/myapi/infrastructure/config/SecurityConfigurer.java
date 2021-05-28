@@ -1,7 +1,7 @@
 package com.myapi.infrastructure.config;
 
 import com.myapi.infrastructure.filters.JwtFilter;
-import com.myapi.service.MyUserDetailsService;
+import com.myapi.service.user.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

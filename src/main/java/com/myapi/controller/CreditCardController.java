@@ -1,9 +1,10 @@
 package com.myapi.controller;
 
 import com.myapi.infrastructure.dto.MessageResponseDTO;
+import com.myapi.infrastructure.exception.MyApiException;
 import com.myapi.model.creditCard.dto.CreditCardListDTO;
 import com.myapi.model.creditCard.dto.CreditCardPostDTO;
-import com.myapi.service.CreditCardService;
+import com.myapi.service.creditCard.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class CreditCardController {
     private CreditCardService service;
 
     @PostMapping
-    public ResponseEntity<MessageResponseDTO> create(@Valid @RequestBody CreditCardPostDTO dto) throws Exception {
+    public ResponseEntity<MessageResponseDTO> create(@Valid @RequestBody CreditCardPostDTO dto) throws MyApiException {
         MessageResponseDTO messageDto = service.create(dto);
 
         if (messageDto != null) {

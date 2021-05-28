@@ -7,9 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -19,27 +16,21 @@ import java.util.Set;
 @Entity
 public class User implements Serializable {
     private static final long serialVersionUID = -1809024519662046454L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(max = 150)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 150)
     private String name;
 
-    @Email
-    @NotBlank
-    @Size(max = 50)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String email;
 
-    @NotBlank
     @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Size(max = 13)
     private Role role = Role.CLIENT;
 
     @OneToMany(targetEntity = CreditCard.class, mappedBy = "user",
