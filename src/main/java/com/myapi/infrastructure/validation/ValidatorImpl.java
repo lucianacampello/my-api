@@ -1,6 +1,7 @@
 package com.myapi.infrastructure.validation;
 
 import com.myapi.infrastructure.exception.MyApiException;
+import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class ValidatorImpl implements Validator {
 
     private static final Logger logger = LoggerFactory.getLogger(ValidatorImpl.class);
@@ -16,10 +18,6 @@ public class ValidatorImpl implements Validator {
 
     protected void addRule(BusinessRule rule) {
         businessRules.add(rule);
-    }
-
-    public ValidatorImpl() {
-        logger.info("entrou no validator impl");
     }
 
     @Override

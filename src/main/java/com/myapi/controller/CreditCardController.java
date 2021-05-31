@@ -22,11 +22,8 @@ public class CreditCardController {
 
     @PostMapping
     public ResponseEntity<MessageResponseDTO> create(@Valid @RequestBody CreditCardPostDTO dto) throws MyApiException {
-        MessageResponseDTO messageDto = service.create(dto);
-
-        if (messageDto != null) {
-            ResponseEntity.badRequest().body(messageDto);
-        }
+        service.create(dto);
+        
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 new MessageResponseDTO(Collections.singletonMap("Success",
                         Collections.singletonList("Credit card successfully created")))

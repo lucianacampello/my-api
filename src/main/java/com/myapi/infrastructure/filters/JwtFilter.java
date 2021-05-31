@@ -1,5 +1,6 @@
 package com.myapi.infrastructure.filters;
 
+import com.myapi.infrastructure.exception.LoginException;
 import com.myapi.infrastructure.utils.JwtUtility;
 import com.myapi.service.user.MyUserDetailsService;
 import org.apache.commons.lang3.StringUtils;
@@ -31,11 +32,10 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response,
-                                    @NotNull FilterChain filter) throws ServletException, IOException {
+                                    @NotNull FilterChain filter) throws ServletException, IOException, LoginException {
         String jwt = parseJwt(request);
 
         try {
-
             if (StringUtils.isNotEmpty(jwt) && jwtUtility.validateToken(jwt)) {
                 String email = jwtUtility.getEmailFromToken(jwt);
 
@@ -51,8 +51,14 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
-        } catch (Exception e) {
+//            else {
+//                LoginException exception = new LoginException();
+//                exception.addMessage("No Token Found");
+//                throw exception;
+//            }
+        } catch (LoginException e) {
             logger.error("Cannot set user authentication: {}", e);
+            throw e;
         }
 
         filter.doFilter(request, response);

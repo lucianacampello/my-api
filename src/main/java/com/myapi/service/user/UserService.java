@@ -1,6 +1,6 @@
 package com.myapi.service.user;
 
-import com.myapi.infrastructure.dto.MessageResponseDTO;
+import com.myapi.infrastructure.exception.MyApiException;
 import com.myapi.infrastructure.utils.JwtUtility;
 import com.myapi.model.auth.dto.LoggedDTO;
 import com.myapi.model.auth.dto.SigninDTO;
@@ -11,6 +11,7 @@ import com.myapi.model.user.dto.UserPostDTO;
 import com.myapi.model.user.entity.User;
 import com.myapi.model.user.mapper.UserMapper;
 import com.myapi.repository.UserRepository;
+import com.myapi.service.user.validation.UserInsertValidation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,7 +23,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,34 +33,22 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
-    @Autowired
     private JwtUtility jwtUtility;
+
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @Autowired
     private PasswordEncoder encoder;
 
     @Transactional(rollbackFor = Throwable.class)
-    public MessageResponseDTO create(UserPostDTO dto) {
-        //TODO throw business exception
-        //TODO validation
-        MessageResponseDTO messageDto = null;
+    public void create(UserPostDTO dto) throws MyApiException {
+        new UserInsertValidation(dto, userRepository).execute();
 
-        if (userRepository.existsByEmail(dto.getEmail())) {
-            messageDto = new MessageResponseDTO(
-                    Collections.singletonMap(
-                            "error",
-                            Collections.singletonList("Already exists a user registered with this email"))
-            );
-        } else {
-            User user = UserMapper.INSTANCE.toUser(dto);
-            user.setPassword(encoder.encode(dto.getPassword()));
+        User user = UserMapper.INSTANCE.toUser(dto);
+        user.setPassword(encoder.encode(dto.getPassword()));
 
-            userRepository.save(user);
-        }
-
-        return messageDto;
+        userRepository.save(user);
     }
 
     @Transactional(readOnly = true)
