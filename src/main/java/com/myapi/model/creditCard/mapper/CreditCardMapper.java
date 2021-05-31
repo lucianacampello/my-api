@@ -14,5 +14,8 @@ public abstract class CreditCardMapper {
     @Mapping(source = "user", target = "user.id")
     public abstract CreditCard toCreditCard(CreditCardPostDTO creditCardPostDTO);
 
+    @Mapping(source = "user.id", target = "user")
+    public abstract CreditCardPostDTO toCreditCardPostDTO(CreditCard creditCard);
+
     public abstract CreditCardListDTO toCreditCardListDTO(CreditCard creditCard);
 }
