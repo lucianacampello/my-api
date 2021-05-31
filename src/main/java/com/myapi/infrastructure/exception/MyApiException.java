@@ -13,7 +13,7 @@ public class MyApiException extends RuntimeException {
     private static final long serialVersionUID = -7361547397325571524L;
 
     private final List<String> messages = new ArrayList<>();
-    public static final HttpStatus HTTP_STATUS = HttpStatus.INTERNAL_SERVER_ERROR;
+    public static final HttpStatus HTTP_STATUS = HttpStatus.BAD_REQUEST;
 
     public HttpStatus getHttpStatus() {
         return HTTP_STATUS;
@@ -25,5 +25,9 @@ public class MyApiException extends RuntimeException {
 
     public boolean hasMessage() {
         return !this.messages.isEmpty();
+    }
+
+    public void addMessageFromExpection(MyApiException exception) {
+        this.messages.addAll(exception.getMessages());
     }
 }

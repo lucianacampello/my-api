@@ -1,6 +1,7 @@
 package com.myapi.controller;
 
 import com.myapi.infrastructure.dto.MessageResponseDTO;
+import com.myapi.infrastructure.exception.MyApiException;
 import com.myapi.model.auth.dto.LoggedDTO;
 import com.myapi.model.auth.dto.SigninDTO;
 import com.myapi.model.user.dto.UserPostDTO;
@@ -21,18 +22,13 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/signin")
-    public LoggedDTO signin(@Valid @RequestBody SigninDTO dto) throws Exception {
+    public LoggedDTO signin(@Valid @RequestBody SigninDTO dto) {
         return userService.signin(dto);
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<MessageResponseDTO> signup(@Valid @RequestBody UserPostDTO dto) throws Exception {
-        MessageResponseDTO messageDTO = userService.create(dto);
-
-        if (messageDTO != null) {
-            return ResponseEntity.badRequest().body(messageDTO);
-        }
-
+    public ResponseEntity<MessageResponseDTO> signup(@Valid @RequestBody UserPostDTO dto) throws MyApiException {
+        userService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 new MessageResponseDTO(Collections.singletonMap("Success",
                         Collections.singletonList("User successfully created"))
